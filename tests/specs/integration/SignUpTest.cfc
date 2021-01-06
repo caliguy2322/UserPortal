@@ -19,8 +19,15 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 	/*********************************** LIFE CYCLE Methods ***********************************/
 
 	function beforeAll(){
+		loc={};
+		loc.mockbox = new testbox.system.MockBox();
+		loc.UserServiceObj = loc.mockBox.createMock("models.UserService");
+		loc.UserServiceObj.init();
+		
 		super.beforeAll();
-		// do your own stuff here
+		
+		// setup the model
+		super.setup();
 	}
 
 	function afterAll(){
@@ -40,9 +47,26 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 			});
 
 			it( "index", function(){
-				var event = execute( event="SignUp.index", renderResults=true );
-				// expectations go here.
-				expect( false ).toBeTrue();
+				var mockDAO = loc.mockBox.createMock("models.UserDAO");
+				var mockUtil = loc.mockBox.createMock("models.Util");
+		        returnStruct = {};
+		        returnStruct.output = queryNew('user_id');
+		        queryAddRow(returnStruct.output);
+		        querySetCell(returnStruct.output,'user_id',1);
+		        mockUtil.$(method="doValidate")
+				mockUtil.$(method="doHashPassword",returns="myhash")
+				mockDAO.$(method="NewUser",returns=returnStruct)
+		 		loc.UserServiceObj.$property(propertyName="dao",mock=mockDAO);
+				loc.UserServiceObj.$property(propertyName="util",mock=mockUtil);
+
+				variables.rc = {};
+		 		rc.emailaddress = 'luis@luis.com';
+		 		rc.password = '1234';
+				rc.firstname = 'firstname';
+		 		rc.lastname = 'lastname';
+		 		var hashKey = '1234';
+				results = loc.UserServiceObj.doSignUp(rc,hashKey);
+		        expect( results.output.recordcount ).toBe("true");
 			});
 
 		

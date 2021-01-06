@@ -29,12 +29,12 @@
 			<div id="loginContainer" class="center">
 				<div id="messageBox"><cfif StructKeyExists(prc,"edit") and StructKeyExists(prc.edit,"ResponseDescriptionPass") and Len(prc.edit.ResponseDescriptionPass)>#encodeforHTML(prc.edit.ResponseDescriptionPass)#</cfif></div>
 				<div class="float-container">
-					<div class="float-child">Password: </div>
-					<div class="float-child"><input id="password" type="text" name="password"></div>
+					<div class="float-child">New Password: </div>
+					<div class="float-child"><input id="password" type="password" name="password"></div>
 				</div>
                 <div class="float-container">
 					<div class="float-child">Re-Password: </div>
-					<div class="float-child"><input id="repassword" type="text" name="repassword"></div>
+					<div class="float-child"><input id="repassword" type="password" name="repassword"></div>
 				</div>
 				<br clear="all">
 				<div class="float-child"><input type="submit" value="Update Password"  name="Btn" id="btn"></div>

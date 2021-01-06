@@ -19,8 +19,16 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 	/*********************************** LIFE CYCLE Methods ***********************************/
 
 	function beforeAll(){
+		loc={};
+		loc.mockbox = new testbox.system.MockBox();
+		loc.UserServiceObj = loc.mockBox.createMock("models.UserService");
+		loc.UserServiceObj.init();
+		
 		super.beforeAll();
-		// do your own stuff here
+		
+		// setup the model
+		super.setup();
+		
 	}
 
 	function afterAll(){
@@ -40,9 +48,16 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 			});
 
 			it( "index", function(){
-				var event = execute( event="Admin.index", renderResults=true );
-				// expectations go here.
-				expect( false ).toBeTrue();
+				var mockDAO = loc.mockBox.createMock("models.UserDAO");
+		        returnStruct = {};
+		        returnStruct.output = queryNew('user_id');
+		        queryAddRow(returnStruct.output);
+		        querySetCell(returnStruct.output,'user_id',1);
+		        mockDAO.$(method="doGetAll",returns=returnStruct)
+		 		loc.UserServiceObj.$property(propertyName="dao",mock=mockDAO);
+
+				results = loc.UserServiceObj.doGetAllUsers();
+		        expect( results.output.recordcount ).toBe("true");
 			});
 
 		

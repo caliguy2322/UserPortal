@@ -39,7 +39,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 	
 	function run(){
 
-		describe( "Login Suite", function(){
+		describe( "SignUp Suite", function(){
 
 			beforeEach(function( currentSpec ){
 				// Setup as a new ColdBox request for this suite, VERY IMPORTANT. ELSE EVERYTHING LOOKS LIKE THE SAME REQUEST.
@@ -48,23 +48,52 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/"{
 
 			it( "index", function(){
 				var mockDAO = loc.mockBox.createMock("models.UserDAO");
-				var mockUtil = loc.mockBox.createMock("models.Util");
 		        returnStruct = {};
 		        returnStruct.output = queryNew('user_id');
 		        queryAddRow(returnStruct.output);
 		        querySetCell(returnStruct.output,'user_id',1);
-		        mockUtil.$(method="doValidate")
-				mockUtil.$(method="doHashPassword",returns="myhash")
-				mockDAO.$(method="login",returns=returnStruct)
+				mockDAO.$(method="doGetUserByUserId",returns=returnStruct)
 		 		loc.UserServiceObj.$property(propertyName="dao",mock=mockDAO);
-				loc.UserServiceObj.$property(propertyName="util",mock=mockUtil);
+    
+				variables.rc = {};
+		 		rc.user_id = 123;
+				results = loc.UserServiceObj.doGetUserByUserId(rc);
+		        expect( results.output.recordcount ).toBe("true");
+			});
+
+            it( "editProfile", function(){
+				var mockDAO = loc.mockBox.createMock("models.UserDAO");
+                var mockUtil = loc.mockBox.createMock("models.Util");
+		        returnStruct = {};
+		        returnStruct.success = true;
+                mockUtil.$(method="doValidateEmail")
+				mockDAO.$(method="update",returns=returnStruct)
+		 		loc.UserServiceObj.$property(propertyName="dao",mock=mockDAO);
+                loc.UserServiceObj.$property(propertyName="util",mock=mockUtil);
 
 				variables.rc = {};
-		 		rc.emailaddress = 'luis@luis.com';
-		 		rc.password = '1234';
-		 		var hashKey = '1234';
-				results = loc.UserServiceObj.doLogin(rc,hashKey);
-		        expect( results.output.recordcount ).toBe("true");
+		 		rc.user_id = 123;
+				results = loc.UserServiceObj.doEditProfile(rc);
+		        expect( results.success ).toBe("true");
+			});
+
+             it( "editPassword", function(){
+				var mockDAO = loc.mockBox.createMock("models.UserDAO");
+                var mockUtil = loc.mockBox.createMock("models.Util");
+		        returnStruct = {};
+		        returnStruct.success = true;
+                mockUtil.$(method="doValidateMatchingPassword")
+                mockUtil.$(method="doHashPassword",returns="myhash")
+				mockDAO.$(method="update",returns=returnStruct)
+		 		loc.UserServiceObj.$property(propertyName="dao",mock=mockDAO);
+                loc.UserServiceObj.$property(propertyName="util",mock=mockUtil);
+
+				variables.rc = {};
+		 		rc.password = 123;
+                rc.repassword = 123;
+                var hashKey = '1234';
+				results = loc.UserServiceObj.doEditPassword(rc,hashKey);
+		        expect( results.success ).toBe("true");
 			});
 
 		

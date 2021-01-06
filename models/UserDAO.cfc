@@ -88,7 +88,7 @@
 		<cfargument name="rc" type="struct" required="true">
 		<cfset var qUpdate = "" />
 		<cfset var returnStruct = structNew() />
-
+		<cfset returnStruct.success = true>
 		<cftry>
 			<cfquery name="qUpdate" datasource="#application.dsn#">
 				UPDATE	users
