@@ -1,7 +1,6 @@
 <cfoutput>
 	<div id="loginDiv">
-		<form name="SignUpForm" method="post" id="SignUpForm"  action="#application.cgihttphost#">
-			<input type="hidden" name="event" value="SignUp.doSignUp">
+		<form name="SignUpForm" method="post" id="SignUpForm" action="#event.buildLink('SignUp/doSignUp')#" >
 			<div id="loginContainer" class="center">
 				<div id="messageBox"><cfif StructKeyExists(prc,"signup") and StructKeyExists(prc.signup,"ResponseDescription") and Len(prc.signup.responsedescription)>#encodeforHTML(prc.signup.responsedescription)#</cfif></div>
 				<div class="float-container">
@@ -14,11 +13,11 @@
 				</div>
                 <div class="float-container">
 					<div class="float-child">Email Address: </div>
-					<div class="float-child"><input id="emailAddress" type="text" name="emailaddress"></div>
+					<div class="float-child"><input id="emailAddress" type="text" name="emailaddress" data-msg-required="Please enter an email address"></div>
 				</div>
                 <div class="float-container">
 					<div class="float-child">Password: </div>
-					<div class="float-child"><input id="password" type="password"  name="password"></div>
+					<div class="float-child"><input id="password" type="password"  name="password" data-msg-required="Please enter a password"></div>
 				</div>
 				<br clear="all">
 				<div class="center"><input type="submit" value="Sign Up"  name="SignUpBtn" id="SignUpBtn"></div>

@@ -13,3 +13,29 @@
 	text-align:center;
 	margin:auto;
 }
+
+
+.hide{
+	display:none;
+}
+
+.left{
+	float:left;
+}
+
+.right{
+	float:right;
+}
+
+.txtRt{
+	text-align:right;
+}
+
+.txtLf{
+	text-align:left;
+}
+
+.formRowLeft{
+	float:left;
+	width:180px;
+}

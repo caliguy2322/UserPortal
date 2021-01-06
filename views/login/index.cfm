@@ -1,7 +1,6 @@
 <cfoutput>
 	<div id="loginDiv">
-		<form name="LoginForm" method="post" id="LoginForm"  action="#application.cgihttphost#">
-			<input type="hidden" name="event" value="Login.doLogin">
+		<form name="LoginForm" method="post" id="LoginForm" action="#event.buildLink('Login/doLogin')#" >
 			<div id="loginContainer" class="center">
 				<div id="messageBox"><cfif StructKeyExists(prc,"login") and StructKeyExists(prc.login,"ResponseDescription") and Len(prc.login.responsedescription)>#encodeforHTML(prc.login.responsedescription)#</cfif></div>
 				<div class="formRow">

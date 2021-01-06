@@ -36,7 +36,18 @@ component{
 	 * index
 	 */
 	function index( event, rc, prc ){
-		event.setView( "General/index" );
+		prc.userInfo = queryNew("firstname,lastname,emailaddress","Varchar,Varchar,Varchar", [ #session.firstname#, #session.lastname#, #session.emailaddress# ]);
+		event.setView( "Profile/index" );
+	}
+
+	function edit( event, rc, prc ){
+		event.setView( "Profile/edit" );
+	}
+
+	function logout( event, rc, prc ){
+		structClear( session );
+		sessionInvalidate();
+		return renderView('login/index');
 	}
 
 

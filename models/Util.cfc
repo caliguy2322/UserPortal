@@ -6,40 +6,29 @@
 		<cfreturn Hash(arguments.password & "_" & arguments.hashKey, 'SHA-512')>
 	</cffunction>
 
-	<cffunction name="doValidate" returntype="struct">
+	<cffunction name="doValidate">
 		<cfargument name="rc" type="struct" required="false" default="">
-		<cfset var returnStruct = structNew()>
-		
-		<cfset returnStruct.success = true>
-		<cfset returnStruct.responseDescription = "">
-			
+
 		<cfif not structKeyExists(arguments.rc,"emailaddress")>
-		 	<cfset returnStruct.responseDescription = "invalid emailaddress (missing)">
-			<cfset returnStruct.success = false>
+			<cfthrow message="invalid emailaddress" type="validation" detail="missing">
 		<cfelse> 
 		   	<cfif not Len(trim(arguments.rc.emailaddress))>
-				<cfset returnStruct.responseDescription = "invalid emailaddress (missing)">
-				<cfset returnStruct.success = false>
+			   	<cfthrow message="invalid emailaddress" type="validation" detail="missing">
 			<cfelseif Len(arguments.rc.emailaddress) gt 50>
-				<cfset returnStruct.responseDescription = "invalid emailaddress (too long). 50 chars max">
-				<cfset returnStruct.success = false>	
+				<cfthrow message="invalid emailaddress" type="validation" detail="too long. 50 chars max">
 			</cfif>
 		</cfif>	
 		
 		<cfif not structKeyExists(arguments.rc,"password")>
-		 	<cfset returnStruct.responseDescription = "invalid password (missing)">
-			<cfset returnStruct.success = false>
+			<cfthrow message="invalid password" type="validation" detail="missing">
 		<cfelse> 
 		   	<cfif not Len(trim(arguments.rc.password))>
-				<cfset returnStruct.responseDescription = "invalid password (missing)">
-				<cfset returnStruct.success = false>
+			   	<cfthrow message="invalid password " type="validation" detail="missing">
 			<cfelseif Len(arguments.rc.password) gt 15>
-				<cfset returnStruct.responseDescription = "invalid password (too long). 15 chars max">
-				<cfset returnStruct.success = false>	
+				<cfthrow message="invalid password" type="validation" detail="too long. 15 chars max">
 			</cfif>
 		</cfif>	
 
-		<cfreturn returnStruct>
 	</cffunction>
 
 </cfcomponent>

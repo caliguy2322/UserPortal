@@ -51,7 +51,7 @@ component{
 			session.lastname = prc.login.output.lastname;
 			session.emailaddress = prc.login.output.emailaddress;
 			session.isadmin = prc.login.output.isadmin;
-			relocate(event="General.index");
+			relocate(event="Profile.index");
 		}	
 		else {
 			return renderView('Login/index');

@@ -39,7 +39,6 @@ component{
 
 		try {
 			prc.signup = userService.doSignUp(rc, application.Hashkey);
-			
 		}
 		catch(any n){
 			prc.signup.ResponseDescription = n.message & " " & n.detail
@@ -54,7 +53,4 @@ component{
 	function index( event, rc, prc ){
 		event.setView( "SignUp/index" );
 	}
-
-
-
 }
