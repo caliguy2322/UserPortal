@@ -34,8 +34,12 @@ component{
 
 	property name="userService" inject="UserService";
 
-	function doAdmin( event, rc, prc ){
-		prc.login = structNew("soft");
+
+	/**
+	 * index
+	 */
+	function index( event, rc, prc ){
+		prc.getAllUsers = structNew("soft");
 
 		try {
 			prc.getAllUsers = userService.doGetAllUsers();
@@ -43,15 +47,9 @@ component{
 		catch(any n){
 			prc.getAllUsers.ResponseDescription = n.message & " " & n.detail
 		}
-		
-		return renderView('Admin/index');
-		
-	}
 
-	/**
-	 * index
-	 */
-	function index( event, rc, prc ){
+		
+
 		event.setView( "Admin/index" );
 	}
 

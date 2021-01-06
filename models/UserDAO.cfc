@@ -56,7 +56,7 @@
         <cfset var qGetAll = "" />
 		<cftry>
 			<cfquery name="qGetAll" datasource="#application.dsn#">
-                SELECT user_id, firstname, lastname, password, emailaddress, isadmin
+                SELECT user_id, firstname, lastname,  emailaddress, isadmin
 	            FROM users;
 			</cfquery>
             <cfset returnStruct.output = qGetAll>
