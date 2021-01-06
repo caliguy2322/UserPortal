@@ -1,0 +1,6 @@
+INSERT INTO public.users(
+	firstname, lastname, password, emailaddress, isadmin, dateadded)
+	VALUES ('admin', 
+			'admin', 
+			'4C6B0134BAD78BD5B57DAFFD54694B5EF71821AC62DB71F1A1040262668D27C2D9DE6E7E65696F1DD40291B91F568FC6E8386B5E0C651F66C772D7162DE3BC06', 
+			'admin@amcorp.com', '1', '11-12-2020');

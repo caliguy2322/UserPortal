@@ -4,7 +4,7 @@
 component{
 
 	// OPTIONAL HANDLER PROPERTIES
-	this.prehandler_only 	= "index";
+	this.prehandler_only 	= "";
 	this.prehandler_except 	= "";
 	this.posthandler_only 	= "";
 	this.posthandler_except = "";
@@ -13,17 +13,11 @@ component{
 	// REST Allowed HTTP Methods Ex: this.allowedMethods = {delete='POST,DELETE',index='GET'}
 	this.allowedMethods = {};
 
-	function preHandler( event, rc, prc, action, eventArguments ){
-		if (not structKeyExists(session,"isadmin")){ 
-			relocate(event="Admin.denied");
-		}
-		elseif (session.isadmin != 1){ 
-			relocate(event="Admin.denied");
-		}
-	}
-
 	/**
 	IMPLICIT FUNCTIONS: Uncomment to use
+
+	function preHandler( event, rc, prc, action, eventArguments ){
+	}
 	function postHandler( event, rc, prc, action, eventArguments ){
 	}
 	function aroundHandler( event, rc, prc, targetAction, eventArguments ){
@@ -38,26 +32,16 @@ component{
 	}
 	*/
 
-	property name="userService" inject="UserService";
-
-
 	/**
 	 * index
 	 */
 	function index( event, rc, prc ){
-		prc.getAllUsers = structNew("soft");
-
-		try {
-			prc.getAllUsers = userService.doGetAllUsers();
-		}
-		catch(any n){
-			prc.getAllUsers.ResponseDescription = n.message & " " & n.detail
-		}
-		event.setView( "Admin/index" );
+		event.setView( "General/index" );
 	}
 
-	function denied( event, rc, prc ){
-		event.setView( "Admin/denied" );
+	function invalid( event, rc, prc ){
+		event.setView( "General/vw404" );
 	}
+
 
 }

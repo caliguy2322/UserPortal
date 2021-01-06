@@ -1,3 +1,4 @@
+<h1>Sign Up Page</h1>
 <cfoutput>
 	<div id="loginDiv">
 		<form name="SignUpForm" method="post" id="SignUpForm" action="#event.buildLink('SignUp/doSignUp')#" >

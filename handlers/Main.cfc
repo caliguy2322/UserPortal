@@ -32,9 +32,6 @@ component extends="coldbox.system.EventHandler" {
 	function onAppInit( event, rc, prc ) {
 		application.Hashkey = "8A1F23211325A336B1D9A5B3F5EF04C5ACAF47829271C392E57194F56761FB4FA9819DC7C02F468CEC1AE44633EEC662164AE961C4C074EEA6CEB66031BE09E0";
 		application.dsn = "postgresdsn";
-		application.cgihttphost = "http://127.0.0.1:55007";
-
-		
 	}
 
 	function onRequestStart( event, rc, prc ) {

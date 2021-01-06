@@ -13,11 +13,17 @@ component{
 	// REST Allowed HTTP Methods Ex: this.allowedMethods = {delete='POST,DELETE',index='GET'}
 	this.allowedMethods = {};
 
+	function preHandler( event, rc, prc, action, eventArguments ){
+		if (structKeyExists(session,"user_id")){ 
+			if (session.user_id){ 
+				relocate(event="Profile.index");
+			}
+		}
+	}
+
 	/**
 	IMPLICIT FUNCTIONS: Uncomment to use
 
-	function preHandler( event, rc, prc, action, eventArguments ){
-	}
 	function postHandler( event, rc, prc, action, eventArguments ){
 	}
 	function aroundHandler( event, rc, prc, targetAction, eventArguments ){
@@ -45,25 +51,15 @@ component{
 		}
 		
 		if (structKeyExists(prc.login, "output") and prc.login.output.recordcount){
-			session.auth = "true"; /* used for security interceptor */
 			session.user_id = prc.login.output.user_id;
-			session.firstname = prc.login.output.firstname;
-			session.lastname = prc.login.output.lastname;
-			session.emailaddress = prc.login.output.emailaddress;
 			session.isadmin = prc.login.output.isadmin;
 			relocate(event="Profile.index");
 		}	
 		else {
-			return renderView('Login/index');
+			event.setView( "Login/index" );
 		}
 	}
 	
-	function doLogout( event, rc, prc ){
-		structClear( session );
-		sessionInvalidate();
-		return renderView('Login/index');
-	}
-
 	/**
 	 * index
 	 */

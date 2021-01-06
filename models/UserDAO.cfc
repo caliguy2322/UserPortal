@@ -67,5 +67,52 @@
 		<cfreturn returnStruct>
 	</cffunction>
 
+	<cffunction name="doGetUserByUserId" returntype="struct" access="public">
+		<cfargument name="rc" type="struct" required="true">
+		<cfset var returnStruct = structNew()>
+        <cfset var qGetUser = "" />
+		<cftry>
+			<cfquery name="qGetUser" datasource="#application.dsn#">
+                SELECT user_id, firstname, lastname,  emailaddress, isadmin
+	            FROM users where user_id = <cfqueryparam value="#arguments.rc.user_id#" CFSQLType="cf_sql_integer" />
+			</cfquery>
+            <cfset returnStruct.output = qGetUser>
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="dberror" detail="Unable to retrieve user">
+			</cfcatch>
+		</cftry>	
+		<cfreturn returnStruct>
+	</cffunction>
+
+	<cffunction name="update" access="public" output="false" returntype="struct">
+		<cfargument name="rc" type="struct" required="true">
+		<cfset var qUpdate = "" />
+		<cfset var returnStruct = structNew() />
+
+		<cftry>
+			<cfquery name="qUpdate" datasource="#application.dsn#">
+				UPDATE	users
+				SET		dateadded = dateadded
+				<cfif structKeyExists(ARGUMENTS.RC,"firstname")>
+					,firstname = <cfqueryparam value="#arguments.rc.firstname#" CFSQLType="cf_sql_varchar" null="#not len(arguments.rc.firstname)#" />
+				</cfif>		
+				<cfif structKeyExists(ARGUMENTS.RC,"lastname")>
+					,lastname = <cfqueryparam value="#arguments.rc.lastname#" CFSQLType="cf_sql_varchar" null="#not len(arguments.rc.lastname)#" />
+				</cfif>		
+				<cfif structKeyExists(ARGUMENTS.RC,"emailaddress")>
+					,emailaddress = <cfqueryparam value="#arguments.rc.emailaddress#" CFSQLType="cf_sql_varchar" null="#not len(arguments.rc.emailaddress)#" />
+				</cfif>		
+				<cfif structKeyExists(ARGUMENTS.RC,"hashpassword")>
+					,password = <cfqueryparam value="#arguments.rc.hashpassword#" CFSQLType="cf_sql_varchar" null="#not len(arguments.rc.hashpassword)#" />
+				</cfif>		
+				WHERE		0=0
+				AND		user_id = <cfqueryparam value="#arguments.rc.user_id#" CFSQLType="cf_sql_integer" />
+			</cfquery>
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="dberror" detail="Unable to update user">
+			</cfcatch>
+		</cftry>
+		<cfreturn returnStruct />
+	</cffunction>
 
 </cfcomponent>

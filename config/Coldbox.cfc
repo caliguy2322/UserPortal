@@ -42,7 +42,7 @@ component {
 			// Error/Exception Handling
 			invalidHTTPMethodHandler : "",
 			exceptionHandler         : "main.onException",
-			invalidEventHandler      : "",
+			invalidEventHandler      : "general.invalid",
 			customErrorTemplate      : "",
 			// Application Aspects
 			handlerCaching           : false,
@@ -122,9 +122,7 @@ component {
 		 * --------------------------------------------------------------------------
 		 * Remember that the order of declaration is the order they will be registered and fired
 		 */
-		interceptors = [
-			{class="interceptors.securityInterceptor",properties={}}
-		];
+		interceptors = [];
 
 		/**
 		 * --------------------------------------------------------------------------

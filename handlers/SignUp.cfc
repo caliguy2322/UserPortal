@@ -36,15 +36,14 @@ component{
 
 	function doSignUp( event, rc, prc ){
 		prc.signup = structNew("soft");
-
 		try {
 			prc.signup = userService.doSignUp(rc, application.Hashkey);
+			relocate(event="Login.index");
 		}
 		catch(any n){
 			prc.signup.ResponseDescription = n.message & " " & n.detail
 		}
-
-		return renderView('SignUp/index');
+		event.setView( "Signup/index" );
 	}
 
 	/**

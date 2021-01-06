@@ -10,8 +10,6 @@
 	<cffunction name="doSignUp" returntype="struct">
 		<cfargument name="rc" type="struct" required="true">
 		<cfargument name="HashKey" type="string" required="true">
-		<cfset var validateStruct = structNew()>
-        <cfset var loginStructValidator = structNew()>
 		<cfset var returnStruct = structNew()>
 		<cfset returnStruct.responseDescription = "">
 
@@ -69,6 +67,38 @@
                 <cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
             </cfcatch>
         </cftry>	
+		<cfreturn returnStruct>
+	</cffunction>
+
+	<cffunction name="doGetUserByUserId" returntype="struct">
+		<cfargument name="rc" type="struct" required="true">
+		<cfset var returnStruct = structNew()>
+		<cftry>
+			<cfset returnStruct = dao.doGetUserByUserId(arguments.rc)>	
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
+			</cfcatch>
+		</cftry>
+		<cfreturn returnStruct>
+	</cffunction>
+
+	<cffunction name="doEditProfile" returntype="struct">
+		<cfargument name="rc" type="struct" required="true">
+		<cfset var returnStruct = structNew()>
+		<cftry>
+			<cfset util.doValidateEmail(arguments.rc)>	
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
+			</cfcatch>
+		</cftry>
+
+		<cftry>
+			<cfset returnStruct = dao.update(rc = arguments.rc)> 
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
+			</cfcatch>
+		</cftry>	
+
 		<cfreturn returnStruct>
 	</cffunction>
 	
