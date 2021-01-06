@@ -56,6 +56,11 @@ component{
 		if (flash.exists('errorMsg')){
 			prc.edit.ResponseDescription = flash.get("errorMsg");
 		}
+
+		if (flash.exists('errorMsgPassword')){
+			prc.edit.ResponseDescriptionPass = flash.get("errorMsgPassword");
+		}
+
 		event.setView( "Profile/edit" );
 	}
 
@@ -72,6 +77,22 @@ component{
 			prc.edit.ResponseDescription = errorMsg
 		}
 		flash.put(name="errorMsg",value=errorMsg);
+		relocate(event="Profile.edit");
+	}
+
+	function editPassword( event, rc, prc ){
+		prc.edit = structNew("soft");
+		rc.user_id = session.user_id;
+		var errorMsg = "";
+		try {
+			prc.edit = userService.doEditPassword(rc, application.Hashkey);
+			relocate(event="Profile.index");
+		}
+		catch(any n){
+			errorMsg = n.message & " " & n.detail;
+			prc.edit.ResponseDescription = errorMsg
+		}
+		flash.put(name="errorMsgPassword",value=errorMsg);
 		relocate(event="Profile.edit");
 	}
 

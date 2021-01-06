@@ -1,7 +1,7 @@
 <h1>Edit Profile</h1>
 <cfoutput>
 	<div id="loginDiv">
-		<form name="SignUpForm" method="post" id="SignUpForm" action="#event.buildLink('Profile/editProfile')#" >
+		<form name="EditForm" method="post" id="EditForm" action="#event.buildLink('Profile/editProfile')#" >
 			<div id="loginContainer" class="center">
 				<div id="messageBox"><cfif StructKeyExists(prc,"edit") and StructKeyExists(prc.edit,"ResponseDescription") and Len(prc.edit.responsedescription)>#encodeforHTML(prc.edit.responsedescription)#</cfif></div>
 				<div class="float-container">
@@ -17,7 +17,27 @@
 					<div class="float-child"><input id="emailAddress" type="text" name="emailaddress" value="#prc.userInfo.output.emailaddress#" data-msg-required="Please enter an email address"></div>
 				</div>
 				<br clear="all">
-				<div class="center"><input type="submit" value="Update"  name="SignUpBtn" id="SignUpBtn"></div>
+				<div class="float-child"><input type="submit" value="Update User Info"  name="Btn" id="btn"></div>
+                <BR><BR>
+			</div>
+		</form>
+	</div>
+
+
+    <div id="loginDiv">
+		<form name="PasswordForm" method="post" id="PasswordForm" action="#event.buildLink('Profile/editPassword')#" >
+			<div id="loginContainer" class="center">
+				<div id="messageBox"><cfif StructKeyExists(prc,"edit") and StructKeyExists(prc.edit,"ResponseDescriptionPass") and Len(prc.edit.ResponseDescriptionPass)>#encodeforHTML(prc.edit.ResponseDescriptionPass)#</cfif></div>
+				<div class="float-container">
+					<div class="float-child">Password: </div>
+					<div class="float-child"><input id="password" type="text" name="password"></div>
+				</div>
+                <div class="float-container">
+					<div class="float-child">Re-Password: </div>
+					<div class="float-child"><input id="repassword" type="text" name="repassword"></div>
+				</div>
+				<br clear="all">
+				<div class="float-child"><input type="submit" value="Update Password"  name="Btn" id="btn"></div>
 			</div>
 		</form>
 	</div>

@@ -101,5 +101,29 @@
 
 		<cfreturn returnStruct>
 	</cffunction>
+
+
+	<cffunction name="doEditPassword" returntype="struct">
+		<cfargument name="rc" type="struct" required="true">
+		<cfargument name="HashKey" type="string" required="true">
+		<cfset var returnStruct = structNew()>
+		<cftry>
+			<cfset util.doValidateMatchingPassword(arguments.rc)>	
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
+			</cfcatch>
+		</cftry>
+
+		<cftry>
+			<cfset hashPassword = util.doHashPassword(password = arguments.rc.password, hashKey = arguments.Hashkey)>
+			<cfset arguments.rc.hashPassword = hashPassword>
+			<cfset returnStruct = dao.update(rc = arguments.rc)> 
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
+			</cfcatch>
+		</cftry>	
+
+		<cfreturn returnStruct>
+	</cffunction>
 	
 </cfcomponent>

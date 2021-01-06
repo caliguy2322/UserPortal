@@ -73,7 +73,7 @@
         <cfset var qGetUser = "" />
 		<cftry>
 			<cfquery name="qGetUser" datasource="#application.dsn#">
-                SELECT user_id, firstname, lastname,  emailaddress, isadmin
+                SELECT user_id, firstname, lastname,  emailaddress
 	            FROM users where user_id = <cfqueryparam value="#arguments.rc.user_id#" CFSQLType="cf_sql_integer" />
 			</cfquery>
             <cfset returnStruct.output = qGetUser>

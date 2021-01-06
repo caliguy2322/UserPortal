@@ -39,5 +39,24 @@
 		</cfif>	
 	</cffunction>
 
+	<cffunction name="doValidateMatching">
+		<cfargument name="rc" type="struct" required="false" default="">
+		<cfif arguments.rc.password neq arguments.rc.repassword>
+			<cfthrow message="invalid password" type="validation" detail="- not matching">
+		</cfif>
+	</cffunction>
+
+	<cffunction name="doValidateMatchingPassword">
+		<cfargument name="rc" type="struct" required="false" default="">
+		<cftry>
+			<cfset this.doValidatePassword(arguments.rc)>	
+			<cfset this.doValidateMatching(arguments.rc)>	
+			<cfcatch type="any">
+				<cfthrow message="#cfcatch.message#" type="#cfcatch.type#" detail="#cfcatch.detail#">
+			</cfcatch>
+		</cftry>
+	</cffunction>
+	
+
 </cfcomponent>
 
