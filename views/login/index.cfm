@@ -12,7 +12,8 @@
 					<div class="formField"><input id="password" type="password"  name="password"></div>
 				</div>
 				<br clear="all">
-				<div class="center"><input type="submit" value="Login"  name="loginBtn" id="loginBtn"></div>
+				<div class="center"><input type="submit" value="Login"  name="loginBtn" id="loginBtn"></div><BR>
+				<a href="#event.buildLink('Signup.index')#">Sign Up</a>
 			</div>
 		</form>
 	</div>
