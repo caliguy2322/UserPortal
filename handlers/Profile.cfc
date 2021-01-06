@@ -4,7 +4,7 @@
 component{
 
 	// OPTIONAL HANDLER PROPERTIES
-	this.prehandler_only 	= "index,edit,logout";
+	this.prehandler_only 	= "index,edit,logout,editPassword,editProfile";
 	this.prehandler_except 	= "";
 	this.posthandler_only 	= "";
 	this.posthandler_except = "";
